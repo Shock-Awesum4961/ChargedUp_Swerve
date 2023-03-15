@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,7 +18,7 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
+    private final XboxController driver = new XboxController(0);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -37,11 +36,11 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
+            new SwerveDriveTrain(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
-                () -> -driver.getRawAxis(rotationAxis), 
+                () -> -driver.getLeftY(), 
+                () -> -driver.getLeftX(), 
+                () -> -driver.getRightX(), 
                 () -> robotCentric.getAsBoolean()
             )
         );
